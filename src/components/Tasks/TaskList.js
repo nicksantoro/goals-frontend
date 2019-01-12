@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchTasks } from '../../actions';
+import { fetchTasksAndUsers } from '../../actions';
 import UserHeader from '../Users/UserHeader'
 
 import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 
-
-
 class TaskList extends Component {
 
   componentDidMount() {
-    this.props.fetchTasks();
+    this.props.fetchTasksAndUsers();
   }
 
   renderList() {
@@ -45,4 +43,4 @@ const mapStateToProps = (state) => {
   return { posts: state.taskList }
 };
 
-export default connect(mapStateToProps, { fetchTasks })(TaskList)
+export default connect(mapStateToProps, { fetchTasksAndUsers })(TaskList)

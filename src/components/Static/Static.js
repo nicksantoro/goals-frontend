@@ -1,13 +1,14 @@
 import React from 'react'
 // import Footer from './Footer/Footer';
 // import NavBar from './NavBar/NavBar'
+import Home from './Home'
 
 
 const Static = () => {
   return (
     <div>
       {/* <NavBar /> */}
-      <h1>Goals</h1>
+      <Home />
       {/* <Footer /> */}
     </div>
   )
