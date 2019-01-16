@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #312C32;
+  background-color: whitesmoke;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -13,3 +13,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.visible.transition {
+  margin: auto !important;
+  margin-top: auto !important;
+  display: inline-block !important;
+  position: relative;
+  top: -1%;
+
+}
+
+/* blue
+#ABDEFF; */

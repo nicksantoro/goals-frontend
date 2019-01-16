@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import './App.css';
-import Static from './components/Static/Static'
+import Home from './components/Static/Home'
 import NavBar from './components/NavBar/NavBar'
-
-
+import Profile from './components/Profile'
 
 
 // import GoalList from './components/Goals/GoalList'
@@ -20,7 +19,8 @@ class App extends Component {
           <NavBar />
           <Route exact path="/" component={() => <Redirect to="/home" />} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/home" component={Static} />
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/users/:id" component={Profile} />
           {/* <Static />
           <GoalList />
           <GoalDeadline />
