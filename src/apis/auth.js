@@ -1,7 +1,7 @@
 const fetchAuth = async (token) => {
-
+  console.log(token)
   if (!token) throw Error("no token found")
-  let userJson = await fetch('http://localhost:5000/users/token', {
+  let userJson = await fetch('https://chirpy4-backend.herokuapp.com/users/token', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

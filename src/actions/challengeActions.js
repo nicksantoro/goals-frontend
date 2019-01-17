@@ -5,12 +5,14 @@ export const UPDATE_CHALLENGE_SUCCESS = "UPDATE_CHALLENGE_SUCCESS"
 export const FILTER_CHALLENGES = "FILTER_CHALLENGES"
 export const ADD_LIKE_SUCCESS = "ADD_LIKE_SUCCESS"
 export const ADD_LIKE_FAILURE = "ADD_LIKE_FAILURE"
+export const JOIN_CHALLENGE_SUCCESS = "JOIN_CHALLENGE_SUCCESS"
+export const COMPLETED_CHALLENGE_SUCCESS = "COMPLETED_CHALLENGE_SUCCESS"
 export const ADD_LIKE = "ADD_LIKE"
 
 export const fetchChallenges = () => {
   return async dispatch => {
     try {
-      const response = await fetch('http://localhost:5000/goals')
+      const response = await fetch('https://chirpy4-backend.herokuapp.com/goals')
       const challenges = await response.json()
       dispatch({
         type: FETCH_CHALLENGES_SUCCESS,
@@ -27,7 +29,7 @@ export const addChallenge = (payload) => {
   return async dispatch => {
     try {
       console.log(payload)
-      let response = await fetch('http://localhost:3000/CHALLENGES', {
+      let response = await fetch('https://chirpy4-backend.herokuapp.com/goals', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -36,7 +38,7 @@ export const addChallenge = (payload) => {
       })
 
       let challenge = await response.json();
-      dispatch({ type: ADD_CHALLENGE_SUCCESS, payload: challenge })
+      dispatch({ type: ADD_CHALLENGE_SUCCESS, payload: challenge[0] })
     }
     catch (error) {
       console.log(error)
@@ -47,7 +49,7 @@ export const addChallenge = (payload) => {
 export const deleteChallenge = (id) => {
   return async dispatch => {
     try {
-      const response = await fetch(`http://localhost:3000/goals/${id}
+      const response = await fetch(`https://chirpy4-backend.herokuapp.com/goals/${id}
       `, {
           method: 'DELETE',
           headers: {
@@ -66,10 +68,37 @@ export const deleteChallenge = (id) => {
   }
 };
 
+export const joinChallenge = (id) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    //console.log('JOIN CHALLENGE GETSTATE:', state)
+    ///const { user } = getState();
+    const payload = { users_id: state.users.user.id }
+    try {
+      const response = await fetch(`https://chirpy4-backend.herokuapp.com/goals/${id}/join
+      `, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        })
+      const challenge = await response.json()
+      dispatch({
+        type: JOIN_CHALLENGE_SUCCESS,
+        payload: challenge
+      })
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+};
+
 export const updateChallenge = (id, payload) => {
   return async dispatch => {
     try {
-      const response = await fetch(`http://localhost:3000/CHALLENGES/${id}
+      const response = await fetch(`https://chirpy4-backend.herokuapp.com/goals/${id}
       `, {
           method: 'PUT',
           headers: {
@@ -89,20 +118,35 @@ export const updateChallenge = (id, payload) => {
   }
 };
 
-// export const filterChallenge = (category) => {
-//   return dispatch => {
-//     return dispatch({
-//       type: FILTER_CHALLENGES,
-//       payload: category
-//     })
-//   }
-// }
+export const markCompleted = (id) => {
+  return async dispatch => {
+    try {
+      const response = await fetch(`https://chirpy4-backend.herokuapp.com/goals/${id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ completed: true })
+        }
+      )
+      const goal = await response.json()
+      dispatch({
+        type: COMPLETED_CHALLENGE_SUCCESS,
+        payload: goal,
+      })
+    }
+    catch (error) {
+      return error
+    }
+  }
+}
 
 
 export const addLike = (challengeId) => {
   return async dispatch => {
     try {
-      let response = await fetch(`http://localhost:5000/goals/${challengeId}/like`, {
+      let response = await fetch(`https://chirpy4-backend.herokuapp.com/goals/${challengeId}/like`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -118,3 +162,13 @@ export const addLike = (challengeId) => {
     }
   }
 };
+
+// export const filterChallenge = (category) => {
+//   return dispatch => {
+//     return dispatch({
+//       type: FILTER_CHALLENGES,
+//       payload: category
+//     })
+//   }
+// }
+

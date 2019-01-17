@@ -3,12 +3,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import './App.css';
 import Home from './components/Static/Home'
 import NavBar from './components/NavBar/NavBar'
-import Profile from './components/Profile'
-
-
-// import GoalList from './components/Goals/GoalList'
-// import GoalDeadline from './components/Goals/GoalDeadline'
-// import TaskList from './components/Tasks/TaskList'
+import ProfilePage from './components/Profile/ProfilePage'
 import Login from './components/login/Login'
 
 class App extends Component {
@@ -20,11 +15,7 @@ class App extends Component {
           <Route exact path="/" component={() => <Redirect to="/home" />} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/home" component={Home} />
-          <Route exact path="/users/:id" component={Profile} />
-          {/* <Static />
-          <GoalList />
-          <GoalDeadline />
-          <TaskList /> */}
+          <Route exact path="/profile" component={ProfilePage} />
         </div>
       </Router>
     );

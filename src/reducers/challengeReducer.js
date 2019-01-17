@@ -2,6 +2,7 @@ import {
   FETCH_CHALLENGES_SUCCESS,
   ADD_CHALLENGE_SUCCESS,
   DELETE_CHALLENGE_SUCCESS,
+  COMPLETED_CHALLENGE_SUCCESS
   // UPDATE_CHALLENGE_SUCCESS,
   // FILTER_CHALLENGES,
   // ADD_LIKE_SUCCESS
@@ -19,9 +20,12 @@ export default (state = initialState, action) => {
       return { ...state, data: action.payload };
 
     case ADD_CHALLENGE_SUCCESS:
-      return { ...state, data: [...state.data, ...action.payload] };
+      return { ...state, data: action.payload };
 
     case DELETE_CHALLENGE_SUCCESS:
+      return { ...state, data: action.payload };
+
+    case COMPLETED_CHALLENGE_SUCCESS:
       return { ...state, data: action.payload };
 
     // case UPDATE_CHALLENGE_SUCCESS:
