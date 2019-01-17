@@ -14,7 +14,7 @@ class Login extends Component {
   handleLogin = (e) => {
     e.preventDefault();
     console.log(this.state)
-    this.props.userLogin(this.state);
+    this.props.userLogin(this.state, this.props.history);
   }
 
   render() {
@@ -28,14 +28,21 @@ class Login extends Component {
 
         <div className="col-8">
           <Container className="pb-5 mt-5 bg-light border border-white shadow-sm p-3 mb-5 bg-white rounded">
-            <i id="bird" className="fal fa-kiwi-bird fa-3x text-primary pt-4 pb-1"></i>
-            <h5 className="mt-5 text-center">Chirpy</h5>
+
+            <div style={{ textAlign: "center" }}>
+              <i id="bird" className="fal fa-kiwi-bird fa-3x text-primary pt-4 pb-1"></i>
+            </div>
+
+            <div style={{ textAlign: "center" }}>
+              <img style={{ width: "20%", height: "auto" }} src={require('./chirpy4-blue.png')} alt="Chirpy Logo" />
+            </div>
+
             <Form onSubmit={this.handleLogin} >
               <FormGroup className="text-center mt-3">
                 <Label for="exampleEmail">Email</Label>
-                <Input onChange={(e) => { this.setState({ email: e.target.value }) }} type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+                <Input onChange={(e) => { this.setState({ email: e.target.value }) }} type="email" name="email" id="exampleEmail" placeholder="email" />
                 <Label for="examplePassword">Password</Label>
-                <Input onChange={(e) => { this.setState({ password: e.target.value }) }} type="password" name="password" id="examplePassword" placeholder="password placeholder" />
+                <Input onChange={(e) => { this.setState({ password: e.target.value }) }} type="password" name="password" id="examplePassword" placeholder="password" />
               </FormGroup>
               <div className="text-center">
                 <Button type="submit" className="bg-primary">Sign in</Button>

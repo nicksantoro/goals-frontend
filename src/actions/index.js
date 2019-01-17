@@ -14,7 +14,7 @@ export const userLogin = (credentials, history) => {
   return async dispatch => {
     try {
       dispatch({ type: 'USER_LOGIN_PENDING' })
-      let userJson = await fetch('http://localhost:5000/users/login', {
+      let userJson = await fetch('https://chirpy4-backend.herokuapp.com/users/login', {
         method: 'POST',
         body: JSON.stringify(credentials),
         headers: { 'Content-Type': 'application/json' },
@@ -31,9 +31,9 @@ export const userLogin = (credentials, history) => {
       }
       dispatch({
         type: 'USER_LOGIN_SUCCESS',
-        payload: { user }
+        payload: user
       })
-      // history.push(`/profile`, user)
+      history.push(`/`)
       // return { token, user }
     } catch (err) {
       console.log(err)
@@ -48,10 +48,10 @@ export const getAuth = () => {
 
       const token = localStorage.getItem('token')
       let user = await fetchAuth(token)
-
+      console.log(user)
       dispatch({
         type: 'GET_AUTH_SUCCESS',
-        payload: { user }
+        payload: user
       })
       // history.push(`/profile`, user)
       // return { token, user }
@@ -82,10 +82,10 @@ export const fetchUser = id => async dispatch => {
   dispatch({ type: 'FETCH_USER', payload: response.data })
 };
 
-// export const logOutUser = () => async dispatch => {
-//   // const response = await jsonPlaceholder.get('/posts');
-//   dispatch({ type: 'LOGOUT_SUCCESS', payload: response.data })
-// };
+export const logOutUser = () => async dispatch => {
+  localStorage.removeItem("token")
+  dispatch({ type: 'LOGOUT_SUCCESS', payload: {} })
+};
 
 
 // user log out

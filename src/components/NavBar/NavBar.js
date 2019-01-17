@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { logOutUser } from '../../actions'
+import { Icon } from 'semantic-ui-react'
+
+import './NavBar.css'
+
 
 import {
   Collapse,
@@ -9,6 +15,7 @@ import {
   Nav,
   NavItem,
   NavLink,
+
   // UncontrolledDropdown,
   // DropdownToggle,
   // DropdownMenu,
@@ -24,22 +31,37 @@ class NavBar extends Component {
       isOpen: !this.state.isOpen
     });
   }
+
+  handleClick = () => {
+    this.props.logOutUser()
+  }
+
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">Chirpy</NavbarBrand>
+        <Navbar color="primary" light expand="md">
+          <NavbarBrand style={{ color: "white" }} href="/">Chirpy</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
 
               {this.props.isLoggedIn ? (<><NavItem>
-                <NavLink href="">{this.props.user.user.name}</NavLink>
+
+                {/* <NavLink style={{ color: "white" }} href="file:///Users/nicholassantoro/Desktop/d3-q4/index.html">
+                  Goals
+                </NavLink> */}
+
+
+
+                <NavLink style={{ color: "white" }} href="/profile">
+                  <Icon name="user circle outline white large" />
+                  {this.props.user.name}
+                </NavLink>
               </NavItem>
                 <NavItem>
-                  <NavLink href="">Sign Out</NavLink>
+                  <NavLink style={{ color: "white" }} onClick={this.handleClick} href="">Sign Out</NavLink>
                 </NavItem> </>) : (<NavItem>
-                  <NavLink href="/login">Login</NavLink>
+                  <NavLink style={{ color: "white" }} href="/login">Login</NavLink>
                 </NavItem>
                 )}
 
@@ -53,8 +75,12 @@ class NavBar extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
+  console.log("nav", state)
   return { user: state.users.user, isLoggedIn: state.users.isLoggedIn };
 }
 
-export default connect(mapStateToProps, null)(NavBar)
+const mapDispatchToProps = (dispatch) => {
+  return { logOutUser: bindActionCreators(logOutUser, dispatch) }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar)
